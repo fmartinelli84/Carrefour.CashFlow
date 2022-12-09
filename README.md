@@ -2,6 +2,12 @@
 
 Aplicação para controle de fluxo de caixa.
 
+## Desenho da Solução
+
+O desenho geral dessa aplicação pode ser encontrado no diagrama abaixo:
+
+![Desenho da Solução](Carrefour%20-%20Desenho%20da%20Solu%C3%A7%C3%A3o.png "Desenho da Solução")
+
 ## Compilação e Execução
 
 Todos os pré-requisitos para compilar e executar a aplicação estão nos containers, para executar basta rodar o comando abaixo na pasta raiz da solution:
