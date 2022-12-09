@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  carrefour.cashflow.web:
+    depends_on:
+      - carrefour.cashflow.api
+    image: ${DOCKER_REGISTRY-}carrefour-cashflow-web
+    build:
+      context: .
+      dockerfile: Carrefour.CashFlow.Web/Dockerfile
+
+  carrefour.cashflow.api:
+    depends_on:
+      - carrefour.cashflow.database
+      - carrefour.cashflow.logging
+    image: ${DOCKER_REGISTRY-}carrefour-cashflow-api
+    build:
+      context: .
+      dockerfile: Carrefour.CashFlow.Api/Dockerfile
+
+  carrefour.cashflow.jobs:
+    depends_on:
+      - carrefour.cashflow.api
+    image: ${DOCKER_REGISTRY-}carrefour-cashflow-jobs
+    build:
+      context: .
+      dockerfile: Carrefour.CashFlow.Jobs/Dockerfile
+
+  carrefour.cashflow.logging:
+    image: datalust/seq
+    environment:
+      ACCEPT_EULA: "Y"
+    ports:
+      - "55903:80"
+    volumes:
+      - ${APPDATA}/carrefour/cashflow/logging:/data
+
+  carrefour.cashflow.database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "D93A1FBF9756"
+    ports:
+      - "1433:1433"
+    volumes:
+      - ${APPDATA}/carrefour/cashflow/database:/var/opt/mssql/data

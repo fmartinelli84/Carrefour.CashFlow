@@ -1,0 +1,28 @@
+<app-message type="Error" [scrollIntoView]="true" [show]="!!businessErrors.length">
+  <ng-container *ngFor="let error of businessErrors; let i = index;">
+    <hr *ngIf="i > 0" />
+    <div class="message-text" [innerHTML]="sanitizer.bypassSecurityTrustHtml(error.message)"></div>
+  </ng-container>
+</app-message>
+
+<app-message type="Error" [scrollIntoView]="true" [show]="!!getUnhandledHttpErrors().length">
+  <h4 class="alert-heading">Unexpected Error</h4>
+  An unexpected error occurred while accessing the server, please try again later.
+  <div class="unhandled-error" *ngFor="let httpError of getUnhandledHttpErrors()">
+
+    <ng-container *ngIf="isArray(httpError.error)">
+      <div *ngFor="let error of httpError.error">
+        <hr />
+        <strong>{{httpError.statusText}} ({{httpError.status}})</strong> - <small>{{httpError.url}}</small>
+        <div *ngIf="error.message && httpError.statusText != error.message" class="message-text">{{error.message}}</div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="!isArray(httpError.error)">
+      <hr />
+      <strong>{{httpError.statusText}} ({{httpError.status}})</strong> - <small>{{httpError.url}}</small>
+      <div *ngIf="httpError.error?.title && httpError.statusText != httpError.error?.title" class="message-text">{{httpError.error.title}}</div>
+    </ng-container>
+
+  </div>
+</app-message>

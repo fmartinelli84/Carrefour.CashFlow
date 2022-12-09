@@ -1,0 +1,37 @@
+<app-parent-route-container>
+
+  <div class="container mb-4">
+    <app-page-title>Consolidado</app-page-title>
+
+    <div class="form-row">
+      <div class="col-md">
+        O consolidado é atualizado a cada 1 minuto.
+      </div>
+      <div class="col-md text-right">
+        <app-reload-button (click)="load()"></app-reload-button>
+      </div>
+    </div>
+  </div>
+  <app-not-found-message [items]="model"></app-not-found-message>
+
+  <table class="table table-striped" *ngIf="model?.length">
+    <thead>
+      <tr>
+        <th class="text-nowrap">Código</th>
+        <th class="text-nowrap">Data</th>
+        <th class="text-nowrap">Saldo (R$)</th>
+        <th class="text-nowrap" style="width: 10%;">Criado Em</th>
+        <th class="text-nowrap" style="width: 10%;">Modificado Em</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let movement of model">
+        <td>{{ movement.id | nullFormat }}</td>
+        <td>{{ movement.date | dateFormat | nullFormat }}</td>
+        <td>{{ movement.value | number:'1.2-2' | nullFormat }}</td>
+        <td class="text-nowrap">{{ movement.createdAtDate | dateTimeFormat | nullFormat }}</td>
+        <td class="text-nowrap">{{ movement.modifiedAtDate | dateTimeFormat | nullFormat }}</td>
+      </tr>
+    </tbody>
+  </table>
+</app-parent-route-container>

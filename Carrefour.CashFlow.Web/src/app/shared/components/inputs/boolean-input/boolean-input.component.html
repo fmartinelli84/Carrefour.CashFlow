@@ -1,0 +1,18 @@
+<app-input type="select"
+           [id]="id"
+           [name]="name"
+           [label]="label"
+           [formControl]="formControl"
+           [placeholder]="placeholder"
+           #valueAccessor
+           [required]="required"
+           [items]="items"
+           selectedValueField="value"
+           displayNameField="name"
+           [setDisplayNameEnable]="false"
+           (selectionChanged)="selectionChanged.emit($event)"
+           [readonly]="readonly"
+           [invalid]="invalid"
+           [showInputLoader]="showInputLoader"
+           [multiple]="multiple">
+</app-input>

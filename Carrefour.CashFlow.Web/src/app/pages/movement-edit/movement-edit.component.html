@@ -1,0 +1,58 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="container mb-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a
+           href="#"
+           [routerLink]="['/movements']">Lançamentos
+        </a>
+      </li>
+      <li class="breadcrumb-item active" *ngIf="!model.id">Novo Lançamento</li>
+      <li class="breadcrumb-item active" *ngIf="model.id">Editar Lançamento</li>
+    </ol>
+    <app-page-title *ngIf="!model.id">Novo Lançamento</app-page-title>
+    <app-page-title *ngIf="model.id">Editar Lançamento</app-page-title>
+
+    <div class="form-row">
+
+      <div class="col-2">
+        <app-input id="idTextbox"
+                   type="number"
+                   label="Código"
+                   formControlName="id">
+        </app-input>
+      </div>
+      <div class="col">
+        <app-input id="dateTextbox"
+                   type="date"
+                   label="Data"
+                   formControlName="date"
+                   [required]="true">
+        </app-input>
+      </div>
+      <div class="col">
+        <app-enum-input id="typeDropdown"
+                        label="Tipo"
+                        [enumType]="movementType"
+                        formControlName="type"
+                        [required]="true">
+        </app-enum-input>
+      </div>
+      <div class="col">
+        <app-input id="valueTextbox"
+                   type="number"
+                   label="Valor (R$)"
+                   formControlName="value"
+                   [required]="true"
+                   [step]="0.01"
+                   [min]="0.01">
+        </app-input>
+      </div>
+    </div>
+
+    <div class="form-group text-right">
+      <app-back-button></app-back-button>
+      <app-save-button type="submit"> </app-save-button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,13 @@
+<app-button [type]="type"
+            buttonCssClass="btn-secondary"
+            iconCssClass="text-secondary"
+            [icon]="['fas', 'edit']"
+            [disabled]="disabled"
+            [id]="id"
+            [iconSize]="iconSize"
+            [hidden]="hidden"
+            [form]="form"
+            [showTooltip]="showTooltip">
+  <ng-container *ngIf="!hasContent" i18n="@@Editar">Editar</ng-container>
+  <span #content><ng-content></ng-content></span>
+</app-button>

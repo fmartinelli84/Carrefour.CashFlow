@@ -1,0 +1,13 @@
+<app-button [type]="type"
+            buttonCssClass="btn-success"
+            iconCssClass="text-success"
+            [icon]="['fas', 'file-alt']"
+            [disabled]="disabled"
+            [id]="id"
+            [iconSize]="iconSize"
+            [hidden]="hidden"
+            [form]="form"
+            [showTooltip]="showTooltip">
+  <ng-container *ngIf="!hasContent" i18n="@@Novo">Novo</ng-container>
+  <span #content><ng-content></ng-content></span>
+</app-button>

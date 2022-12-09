@@ -1,0 +1,30 @@
+<div
+  [ngClass]="{
+    'form-group': (label || labelHeader) && type != 'checkbox' && type != 'radio'
+  }"
+  [ngStyle]="{
+    'display': readonly ? 'inline-block' : 'block'
+  }">
+  <label [for]="id"
+         *ngIf="(label || labelHeader) && type != 'checkbox' && type != 'radio'"
+         class="text-nowrap"
+         style="display: block"
+         [ngClass]="{
+           'font-weight-bold': readonly
+         }">
+    <ng-container *ngIf="label && !labelHeader">{{label}}</ng-container>
+    <ng-content select="[app-label-header]"></ng-content>
+    <strong class="text-danger" *ngIf="required && !readonly"> *</strong>
+    <span class="d-none">:</span>
+  </label>
+
+  <div
+    [ngClass]="{
+      'form-control-plaintext form-control-sm': readonly
+    }"
+    [ngStyle]="{
+      'display': readonly ? 'inline-block' : 'block'
+    }">
+    <ng-content></ng-content>
+  </div>
+</div>

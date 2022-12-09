@@ -1,0 +1,13 @@
+<app-button [type]="type"
+            buttonCssClass="btn-primary"
+            iconCssClass="text-primary"
+            [icon]="['fas', 'check']"
+            [disabled]="disabled"
+            [id]="id"
+            [iconSize]="iconSize"
+            [hidden]="hidden"
+            [form]="form"
+            [showTooltip]="showTooltip">
+  <ng-container *ngIf="!hasContent" i18n="@@Ok">Ok</ng-container>
+  <span #content><ng-content></ng-content></span>
+</app-button>

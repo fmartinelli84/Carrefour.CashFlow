@@ -1,0 +1,217 @@
+<app-label *ngIf="formControl"
+           [id]="id"
+           [name]="name"
+           [type]="type"
+           [label]="label"
+           [readonly]="readonly"
+           [required]="required">
+  <ng-container *ngIf="labelHeader" app-label-header>
+    <ng-content select="[app-label-header]"></ng-content>
+  </ng-container>
+
+  <ng-container [ngSwitch]="type">
+
+    <div [ngClass]="{ 'input-group input-group-sm': prependLabel || appendLabel }">
+
+      <div class="input-group-append" *ngIf="prependLabel">
+        <span class="input-group-text" [ngClass]="{ 'input-group-text-readonly': readonly }">{{prependLabel}}</span>
+      </div>
+
+      <ng-container *ngSwitchCase="'textarea'">
+        <textarea [id]="id"
+                  [name]="name"
+                  [formControl]="formControl"
+                  #valueAccessor
+                  [cols]="cols"
+                  [rows]="rows"
+                  class="form-control form-control-sm e-control"
+                  [ngClass]="{ 'is-invalid': invalid || (formControl.invalid && formControl.touched) }"
+                  [hidden]="readonly"
+                  (input)="onInput($event)"
+                  (keypress)="onKeyPress($event)"
+                  (change)="onChange($event)">
+      </textarea>
+        <div *ngIf="readonly">
+          {{valueAccessor?.value | nullFormat}}
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'select'">
+        <ng-container *ngIf="multiple">
+          <select [id]="id"
+                  [name]="name"
+                  [formControl]="formControl"
+                  #valueAccessor
+                  #selectMultipleElement
+                  multiple
+                  class="form-control form-control-sm e-control"
+                  [ngClass]="{ 'is-invalid': invalid || (formControl.invalid && formControl.touched) }"
+                  [hidden]="readonly"
+                  (change)="onChange($event)">
+            <option *ngIf="!required && !readonly && !multiple"></option>
+            <option *ngFor="let item of items" value="{{selectedValueField ? item[selectedValueField] : item}}">{{displayNameField ? item[displayNameField] : item}}</option>
+            <ng-content></ng-content>
+          </select>
+          <div *ngIf="readonly">
+            {{getSelectedText(selectMultipleElement) | nullFormat}}
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="!multiple">
+          <select [id]="id"
+                  [name]="name"
+                  [formControl]="formControl"
+                  #valueAccessor
+                  #selectElement
+                  class="form-control form-control-sm e-control"
+                  [ngClass]="{ 'is-invalid': invalid || (formControl.invalid && formControl.touched) }"
+                  [hidden]="readonly"
+                  (change)="onChange($event)">
+            <option *ngIf="!required && !readonly && !multiple"></option>
+            <option *ngFor="let item of items" value="{{selectedValueField ? item[selectedValueField] : item}}">{{displayNameField ? item[displayNameField] : item}}</option>
+            <ng-content></ng-content>
+          </select>
+          <div *ngIf="readonly">
+            {{getSelectedText(selectElement) | nullFormat}}
+          </div>
+        </ng-container>
+
+        <span *ngIf="placeholder && !formControl.value && !readonly && !multiple" class="select-placeholder">{{placeholder}}</span>
+      </ng-container>
+
+      <div *ngSwitchCase="'checkbox'" class="custom-control custom-checkbox">
+        <input type="checkbox"
+               [id]="id"
+               [name]="name"
+               [formControl]="formControl"
+               #valueAccessor
+               class="custom-control-input e-control"
+               [ngClass]="{ 'is-invalid': invalid || (formControl.invalid && formControl.touched) }"
+               [attr.disabled]="readonly ? true : null"
+               [value]="value"
+               (change)="onChange($event)" />
+        <label class="custom-control-label" [for]="id">{{label}}</label>
+      </div>
+
+      <div *ngSwitchCase="'radio'" class="custom-control custom-radio">
+        <input type="radio"
+               [id]="id"
+               [name]="name"
+               [formControl]="formControl"
+               #valueAccessor
+               class="custom-control-input e-control"
+               [ngClass]="{ 'is-invalid': invalid || (formControl.invalid && formControl.touched) }"
+               [value]="value"
+               (change)="onChange($event)" />
+        <label class="custom-control-label" [for]="id">{{label}}</label>
+      </div>
+
+      <ng-container *ngSwitchCase="'date'">
+        <input autocomplete="off"
+               type="date"
+               [id]="id"
+               [name]="name"
+               [formControl]="formControl"
+               #valueAccessor
+               [placeholder]="placeholder"
+               class="form-control form-control-sm e-control"
+               [ngClass]="{
+                'is-invalid': invalid || (formControl.invalid && formControl.touched),
+                'hide-spin': hideSpin
+             }"
+               [minlength]="minlength"
+               [maxlength]="maxlength"
+               [attr.min]="min | date:'yyyy-MM-dd'"
+               [attr.max]="max | date:'yyyy-MM-dd'"
+               [hidden]="readonly"
+               [min]="min"
+               [max]="max"
+               (change)="onChange($event)" />
+        <div *ngIf="readonly">
+          {{valueAccessor?.value | dateFormat | nullFormat}}
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <input autocomplete="off"
+               [type]="type"
+               [id]="id"
+               [name]="name"
+               [formControl]="formControl"
+               #valueAccessor
+               [placeholder]="placeholder"
+               class="form-control form-control-sm e-control"
+               [ngClass]="{
+                'is-invalid': invalid || (formControl.invalid && formControl.touched),
+                'hide-spin': hideSpin
+             }"
+               [minlength]="minlength"
+               [maxlength]="maxlength"
+               [attr.min]="min"
+               [attr.max]="max"
+               [step]="step"
+               [hidden]="readonly"
+               (input)="onInput($event)"
+               (keypress)="onKeyPress($event)"
+               (change)="onChange($event)" />
+        <div *ngIf="readonly && type != 'number'">
+          {{valueAccessor?.value | nullFormat}}
+        </div>
+        <div *ngIf="readonly && type == 'number'">
+          {{valueAccessor?.value | number:getNumerFormat() | nullFormat}}
+        </div>
+      </ng-container>
+
+      <div class="input-group-append" *ngIf="appendLabel">
+        <span class="input-group-text" [ngClass]="{ 'input-group-text-readonly': readonly }">{{appendLabel}}</span>
+      </div>
+
+      <app-input-loader [show]="showInputLoader"></app-input-loader>
+
+      <div class="invalid-feedback" *ngIf="formControl.errors?.pattern">
+        <ng-container *ngIf="type == 'tel'" i18n="@@Telefone inválido">
+          Telefone inválido
+        </ng-container>
+        <ng-container *ngIf="type != 'tel' && type != 'email' && !patternFormat" i18n="@@Formato inválido">
+          Formato inválido
+        </ng-container>
+        <ng-container *ngIf="type != 'tel' && patternFormat" i18n="@@Formato inválido, utilize">
+          Formato inválido, utilize <span class="text-nowrap">{{patternFormat}}</span>
+        </ng-container>
+      </div>
+
+      <div class="invalid-feedback" *ngIf="formControl.errors?.minlength" i18n="@@Mínimo de caractere">
+        Mínimo de {{formControl.errors?.minlength.requiredLength | number}}
+        {formControl.errors?.minlength.requiredLength, plural,
+        =1 {caractere}
+        other {caracteres}}
+      </div>
+      <div class="invalid-feedback" *ngIf="formControl.errors?.maxlength" i18n="@@Máximo de caractere">
+        Máximo de {{formControl.errors?.maxlength.requiredLength | number}}
+        {formControl.errors?.maxlength.requiredLength, plural,
+        =1 {caractere}
+        other {caracteres}}
+      </div>
+
+      <div class="invalid-feedback" *ngIf="formControl.errors?.min && type != 'date'" i18n="@@Valor mínimo é">
+        Valor mínimo é {{formControl.errors?.min.min | number}}
+      </div>
+      <div class="invalid-feedback" *ngIf="formControl.errors?.max && type != 'date'" i18n="@@Valor máximo é">
+        Valor máximo é {{formControl.errors?.max.max | number}}
+      </div>
+
+      <div class="invalid-feedback" *ngIf="formControl.errors?.min && type == 'date'" i18n="@@Datas anteriores a não são permitidas">
+        Datas anteriores a {{formControl.errors?.min.min | dateFormat}} não são permitidas
+      </div>
+      <div class="invalid-feedback" *ngIf="formControl.errors?.max && type == 'date'" i18n="@@Datas após não são permitidas">
+        Datas após {{formControl.errors?.max.max | dateFormat}} não são permitidas
+      </div>
+
+      <div class="invalid-feedback" *ngIf="formControl.errors?.email" i18n="@@E-mail inválido">
+        E-mail inválido
+      </div>
+    </div>
+
+  </ng-container>
+
+</app-label>

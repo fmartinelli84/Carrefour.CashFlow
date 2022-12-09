@@ -1,0 +1,7 @@
+.input-group-text-readonly {
+  background-color: transparent;
+  border-color: transparent;
+}
+.input-group-text-readonly::after {
+  content: ':';
+}

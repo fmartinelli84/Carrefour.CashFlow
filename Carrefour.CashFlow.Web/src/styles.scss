@@ -1,0 +1,345 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+
+body {
+  margin: 10px;
+  min-height: 800px;
+}
+
+/* Forms */
+.input-group-sm .input-group-text {
+  height: 31px;
+}
+
+.form-control-sm {
+  height: auto !important;
+  min-height: calc(1.5em + 0.5rem + 2px);
+}
+
+/* Icons */
+fa-icon {
+  font-size: 1rem;
+}
+
+/* Fieldsets */
+
+/* Fieldset principal */
+fieldset {
+  border: 1px solid #dee2e6;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 24px;
+}
+
+fieldset.collapsed {
+  border: 1px solid transparent;
+}
+
+fieldset>legend {
+  padding-bottom: 5px;
+  background-color: #f0f0f0;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+fieldset.collapsed>legend {
+  margin-bottom: 0px;
+}
+
+/* Fieldset secundário */
+fieldset fieldset {
+  border: none;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-bottom: 0px;
+}
+
+fieldset fieldset.collapsed {
+  margin-bottom: 16px;
+}
+
+fieldset fieldset>legend {
+  background-color: #f7f7f7 !important;
+  font-size: 1.3rem !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+app-fieldset.fieldset-secondary>fieldset {
+  border: none;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-bottom: 0px;
+}
+
+app-fieldset.fieldset-secondary>fieldset.collapsed {
+  margin-bottom: 16px;
+}
+
+app-fieldset.fieldset-secondary>fieldset>legend {
+  background-color: #f7f7f7 !important;
+  font-size: 1.3rem !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+fieldset .table {
+  margin-top: -8px;
+  /*margin-bottom: 0px;*/
+}
+
+// fieldset .table th {
+//    border-top: none;
+// }
+
+/* Buttons */
+button {
+  white-space: nowrap;
+}
+
+app-button[disabled],
+button[disabled],
+a[disabled] {
+  cursor: not-allowed;
+}
+
+a[disabled] {
+  opacity: 0.5;
+}
+
+/* Loaders */
+input[disabled]~app-input-loader>app-control-loader,
+select[disabled]~app-input-loader>app-control-loader {
+  background-color: transparent !important;
+}
+
+app-page-title app-control-loader,
+app-legend>app-control-loader {
+  position: absolute;
+  margin-left: 8px;
+  margin-top: -6px;
+}
+
+/* Texts */
+.table-subtitle {
+  display: block;
+  margin-top: -16px;
+  margin-bottom: 16px;
+}
+
+/*fieldset .table-subtitle {
+  margin-top: -8px;
+  margin-bottom: 8px;
+}*/
+
+/* Labels */
+// app-label {
+//   display: block;
+//   margin-bottom: 16px;
+// }
+
+.form-group>label {
+  margin-bottom: 0px;
+}
+
+.inline-label {
+  display: table !important;
+  margin-bottom: 16px;
+}
+
+.inline-label>app-label {
+  display: table-row-group !important;
+}
+
+.inline-label>app-label>div {
+  display: table-row !important;
+  margin-bottom: 0px;
+}
+
+.inline-label>app-label>div>label,
+.inline-label>app-label>div>div {
+  display: table-cell !important;
+}
+
+.inline-label>app-label>div>label {
+  padding-right: 14px;
+}
+
+.inline-label>app-label>div>label>span.d-none {
+  display: inline !important;
+}
+
+.inline-label>app-label>div>.form-control-plaintext {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.small .inline-label>app-label>div>.form-control-plaintext,
+.small.inline-label>app-label>div>.form-control-plaintext {
+  line-height: 16px !important;
+  font-size: 12.8px !important;
+}
+
+header {
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+
+.no-margin .form-group {
+  margin-bottom: 0px !important;
+}
+
+.select-placeholder {
+  color: grey !important;
+  font-size: 1rem !important;
+  position: absolute;
+  white-space: nowrap;
+  top: 5px;
+  left: 18px;
+  pointer-events: none;
+}
+
+/* Tables */
+.selection-column {
+  width: 1% !important;
+  text-align: center !important;
+  padding-left: 20px !important;
+  padding-right: 0px !important;
+}
+
+.action-column {
+  width: 1%;
+  text-align: center;
+}
+
+.table-secondary,
+.table-secondary>td,
+.table-secondary>th {
+  background-color: #f0f0f0 !important;
+}
+
+/* Lists */
+ul.dashed {
+  margin: 0px;
+  padding-left: 10px;
+  list-style-type: none;
+}
+
+ul.dashed>li:before {
+  content: "-";
+  position: absolute;
+  margin-left: -10px;
+}
+
+app-label ul {
+  padding-left: 18px;
+  margin-bottom: 0px;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+  margin: 0px;
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: transparent;
+}
+
+.breadcrumb-item>a {
+  color: #6c757d;
+}
+
+/* clears the 'X' from Internet Explorer */
+input.hide-clear[type="search"]::-ms-clear,
+input.hide-clear[type="search"]::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* clears the 'X' from Chrome */
+input.hide-clear[type="search"]::-webkit-search-decoration,
+input.hide-clear[type="search"]::-webkit-search-cancel-button,
+input.hide-clear[type="search"]::-webkit-search-results-button,
+input.hide-clear[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input.hide-spin[type="number"]::-webkit-inner-spin-button,
+input.hide-spin[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input.hide-spin[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Rating */
+star-rating {
+  display: inline-block;
+}
+
+/* Messages */
+.message-icon {
+  font-size: 28px;
+}
+
+.unhandled-error {
+  word-break: break-all;
+}
+
+.message-container {
+  width: 100%;
+}
+
+.message-container hr {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.message-text {
+  white-space: pre-line;
+}
+
+/* FormArray */
+fieldset>.form-array {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+/* Legend */
+app-legend {
+  width: 100% !important;
+}
+
+app-legend>*>app-button {
+  position: absolute !important;
+  margin-left: 8px !important;
+  margin-top: -2px !important;
+}
+
+.form-array-item {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+tr:first-of-type .form-array-item {
+  border-top: none !important;
+  padding-top: 0px !important;
+}
+
+tr:last-of-type .form-array-item {
+  padding-bottom: 0px !important;
+}
+
+.remove-form-array-item {
+  position: absolute !important;
+  z-index: 9999 !important;
+  padding: 0px !important;
+  width: 0px !important;
+  margin-left: -15px !important;
+}

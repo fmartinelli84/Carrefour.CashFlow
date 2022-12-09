@@ -1,0 +1,14 @@
+<app-button [type]="type"
+            buttonCssClass="btn-outline-secondary"
+            iconCssClass="text-secondary"
+            [icon]="['fas', 'times']"
+            [disabled]="disabled"
+            (click)="reset()"
+            [id]="id"
+            [iconSize]="iconSize"
+            [hidden]="hidden"
+            [form]="form"
+            [showTooltip]="showTooltip">
+  <ng-container *ngIf="!hasContent" i18n="@@Limpar">Limpar</ng-container>
+  <span #content><ng-content></ng-content></span>
+</app-button>

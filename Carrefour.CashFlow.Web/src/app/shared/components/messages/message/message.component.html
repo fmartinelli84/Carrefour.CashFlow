@@ -1,0 +1,25 @@
+<div class="alert"
+     [ngClass]="messageService.getAlertCssClass(messageType.fromName(type))"
+     role="alert"
+     *ngIf="show">
+
+  <div class="form-row flex-nowrap">
+    <div class="col-auto">
+      <fa-icon [icon]="messageService.getIcon(messageType.fromName(type))" size="lg" class="message-icon"
+               [ngClass]="messageService.getIconCssClass(messageType.fromName(type))">
+      </fa-icon>
+    </div>
+    <div class="col d-flex align-items-center">
+      <div class="message-container">
+        <span [ngClass]="{ 'float-left': autoCloseCountDown !== null }">
+          <ng-content *ngIf="!message"></ng-content>
+          <span class="message-text" *ngIf="message" [innerHTML]="sanitizer.bypassSecurityTrustHtml(message)"></span>
+        </span>
+        <span class="text-dark ml-2 " *ngIf="autoCloseCountDown !== null">({{autoCloseCountDown}})</span>
+      </div>
+    </div>
+    <div class="col-auto">
+      <app-close-button type="icon" (click)="dismiss()"></app-close-button>
+    </div>
+  </div>
+</div>

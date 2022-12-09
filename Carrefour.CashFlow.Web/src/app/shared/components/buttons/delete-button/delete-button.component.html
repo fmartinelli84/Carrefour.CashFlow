@@ -1,0 +1,13 @@
+<app-button [type]="type"
+            buttonCssClass="btn-danger"
+            iconCssClass="text-danger"
+            [icon]="['fas', 'trash']"
+            [disabled]="disabled"
+            [id]="id"
+            [iconSize]="iconSize"
+            [hidden]="hidden"
+            [form]="form"
+            [showTooltip]="showTooltip">
+  <ng-container *ngIf="!hasContent" i18n="@@Excluir">Excluir</ng-container>
+  <span #content><ng-content></ng-content></span>
+</app-button>
